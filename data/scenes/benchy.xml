@@ -1,0 +1,64 @@
+<scene version="2.1.0">
+
+<!-- Defaults, these can be set via the command line: -Darg=value -->
+
+	<default name="resx" value="1280"/>
+	<default name="resy" value="720"/>
+	<default name="spp" value="128"/>
+
+<!-- Camera and Rendering Parameters -->
+
+	<integrator type="prb_reparam" id="integrator">
+		<integer name="max_depth" value="8"/>
+	</integrator>
+	<sensor type="perspective" id="sensor">
+		<float name="near_clip" value="0.500000"/>
+		<float name="far_clip" value="50.000000"/>
+		<transform name="to_world">
+			<rotate x="1" angle="124.48138607639797"/>
+			<rotate y="1" angle="-5.589766330465992e-07"/>
+			<rotate z="1" angle="15.945395928738465"/>
+			<translate value="-2.000000 7.000000 5.000000"/>
+		</transform>
+		<film type="hdrfilm">
+			<rfilter type="gaussian"/>
+			<integer name="width" value="$resx"/>
+			<integer name="height" value="$resy"/>
+		</film>
+		<sampler type="independent">
+			<integer name="sample_count" value="$spp"/>
+		</sampler>
+	</sensor>
+
+<!-- Emitters -->
+
+	<emitter type="constant" id="constantLight">
+		<spectrum value="0.990000" name="radiance"/>
+	</emitter>
+
+<!-- Shapes -->
+
+	<shape type="obj" id="benchy">
+        <string name="filename" value="meshes/benchy.obj"/>
+		<transform name="to_world">
+			<matrix value="0.050000 0.000000 0.000000 0.000000 0.000000 -0.000000 -0.050000 0.000000 0.000000 0.050000 -0.000000 -1.000000 0.000000 0.000000 0.000000 1.000000"/>
+		</transform>
+		<bsdf type="diffuse">
+			<rgb value="0.200000 0.200000 0.800000" name="reflectance"/>
+		</bsdf>
+	</shape>
+	<shape type="rectangle" id="floor">
+		<transform name="to_world">
+			<matrix value="30.000000 0.000000 0.000000 0.000000 0.000000 30.000000 0.000000 0.000000 0.000000 0.000000 1.000000 -2.000000 0.000000 0.000000 0.000000 1.000000"/>
+		</transform>
+		<bsdf type="diffuse">
+			<texture type="checkerboard" name="reflectance">
+				<float name="color0" value="0.100000"/>
+				<float name="color1" value="0.200000"/>
+				<transform name="to_uv">
+					<matrix value="30.000000 0.000000 0.000000 0.000000 0.000000 30.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 1.000000"/>
+				</transform>
+			</texture>
+		</bsdf>
+	</shape>
+</scene>

@@ -1,0 +1,11 @@
+acoustic-simulations/
+ceiling-sail-old/
+ceiling-sail/
+diff-material/
+eierpappe/
+emitter-pos/
+room-size/
+ism-diff-exp/
+scenes/textures/
+scenes/meshes/*.obj
+scenes/meshes/*.stl

@@ -1,0 +1,64 @@
+<scene version="2.1.0">
+
+<!-- Defaults, these can be set via the command line: -Darg=value -->
+
+	<default name="spp" value="256"/>
+
+<!-- Camera and Rendering Parameters -->
+
+	<integrator type="acousticpath" id="integrator" name="integrator">
+		<integer name="max_depth" value="150"/>
+		<integer name="max_time" value="4"/>
+		<boolean name="enable_hit_model" value="true"/>
+		<boolean name="skip_direct" value="false"/>
+		<boolean name="enable_emitter_sampling" value="true"/>
+	</integrator>
+	<sensor type="microphone" id="sensor" name="sensor">
+		<transform name="to_world">
+			<translate value="9.000000 6.000000 1.000000"/>
+		</transform>
+		<film type="tape" name="film">
+			<integer name="time_bins" value="4000"/>
+			<integer name="wav_bins" value="5"/>
+			<rfilter type="box" name="rfilter"/>
+			<boolean name="count" value="true"/>
+		</film>
+		<sampler type="ldsampler" name="sampler">
+			<integer name="sample_count" value="$spp"/>
+		</sampler>
+	</sensor>
+
+<!-- Materials -->
+
+
+<!-- Emitters -->
+
+	<shape type="sphere" id="emitter" name="emitter_shape">
+		<float name="radius" value="0.100000"/>
+		<transform name="to_world">
+			<matrix value="1.000000 0.000000 0.000000 20.000000 0.000000 1.000000 0.000000 7.000000 0.000000 0.000000 1.000000 2.000000 0.000000 0.000000 0.000000 1.000000"/>
+		</transform>
+		<emitter type="area" name="emitter">
+			<texture type="uniform" name="radiance">
+				<float name="value" value="1.000000"/>
+			</texture>
+		</emitter>
+		<bsdf type="null" name="bsdf"/>
+	</shape>
+
+<!-- Shapes -->
+
+	<shape type="obj" id="shoebox" name="shoebox">
+		<string name="filename" value="meshes/cuberoom.obj"/>
+		<bsdf type="acousticbsdf" name="bsdf">
+			<spectrum value="0.000000" name="scattering"/>
+			<spectrum value="1.000000:0.100000, 2.000000:0.250000, 3.000000:0.500000, 4.000000:0.750000, 5.000000:0.900000" name="absorption"/>
+		</bsdf>
+		<transform name="to_world">
+			<matrix value="12.500000 0.000000 0.000000 12.500000 0.000000 6.000000 0.000000 6.000000 0.000000 0.000000 3.500000 3.500000 0.000000 0.000000 0.000000 1.000000"/>
+		</transform>
+	</shape>
+
+<!-- Volumes -->
+
+</scene>
